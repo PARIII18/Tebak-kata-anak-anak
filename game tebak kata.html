@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Huruf & Angka - Indonesia & English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Pengaturan Dasar & Font Ceria Anak */
+        body {
+            font-family: 'Fredoka', 'Nunito', sans-serif;
+            background: radial-gradient(circle at 50% 35%, #FFF176 0%, #FFD600 55%, #FFB300 100%);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        /* Efek Judul 3D Tebal ala Poster Anak */
+        .title-poster {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            color: #FFEA00;
+            -webkit-text-stroke: 6px #111111;
+            paint-order: stroke fill;
+            text-shadow: 0 5px 0 #111111, 0 0 14px #FFFFFF, 0 0 18px #FFFFFF;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 640px) {
+            .title-poster {
+                -webkit-text-stroke: 4px #111111;
+                text-shadow: 0 3px 0 #111111, 0 0 8px #FFFFFF;
+            }
+        }
+
+        /* Badge Gelombang Indonesia English */
+        .badge-text {
+            text-shadow: 1.5px 1.5px 0 #01579B, -1px -1px 0 #01579B, 1px -1px 0 #01579B, -1px 1px 0 #01579B;
+        }
+
+        /* Tombol Menu Lingkaran */
+        .menu-btn {
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.22), inset 0 3px 4px rgba(255,255,255,0.55);
+        }
+        .menu-btn:active {
+            transform: scale(0.9) translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.22);
+        }
+        .menu-btn-active {
+            ring: 4px;
+            box-shadow: 0 0 0 4px #FFEA00, 0 5px 12px rgba(0,0,0,0.35);
+            transform: scale(1.06);
+        }
+
+        /* Kartu Grid Interaktif */
+        .edu-card {
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s, box-shadow 0.2s;
+            background: #FFFFFF;
+        }
+        .edu-card:hover {
+            background-color: #FFFDE7;
+            z-index: 10;
+            box-shadow: 0 6px 14px rgba(245, 127, 23, 0.25);
+        }
+        .edu-card:active, .card-pop {
+            transform: scale(1.08) !important;
+            background-color: #FFF9C4 !important;
+            z-index: 20;
+            box-shadow: 0 8px 20px rgba(255, 160, 0, 0.45);
+        }
+
+        /* Animasi Jawaban Benar & Salah pada Mode Ujian */
+        @keyframes correctPulse {
+            0% { transform: scale(1); background-color: #FFFFFF; }
+            40% { transform: scale(1.13); background-color: #B9F6CA; box-shadow: 0 0 0 4px #00C853; }
+            100% { transform: scale(1); background-color: #E8F5E9; }
+        }
+        .card-correct {
+            animation: correctPulse 0.65s ease-out;
+            z-index: 25;
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); background-color: #FFCDD2; }
+            40% { transform: translateX(6px); background-color: #FFCDD2; }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+        .card-wrong {
+            animation: wrongShake 0.45s ease-in-out;
+            z-index: 25;
+        }
+
+        /* Animasi Jerapah & Anak Mengintip Halus */
+        @keyframes gentleSwayLeft {
+            0%, 100% { transform: rotate(-1deg) translateY(0); }
+            50% { transform: rotate(1.5deg) translateY(-4px); }
+        }
+        @keyframes gentleSwayRight {
+            0%, 100% { transform: rotate(1deg) translateY(0); }
+            50% { transform: rotate(-1.5deg) translateY(-4px); }
+        }
+        .giraffe-left { animation: gentleSwayLeft 4.5s ease-in-out infinite; transform-origin: bottom left; }
+        .giraffe-right { animation: gentleSwayRight 4.8s ease-in-out infinite; transform-origin: bottom right; }
+
+        /* Partikel Bintang Melayang saat Klik */
+        .star-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: flyStar 0.75s ease-out forwards;
+        }
+        @keyframes flyStar {
+            0% { opacity: 1; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.3) rotate(180deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-transparent">
+
+    <!-- Dekorasi Cahaya Matahari Latar Belakang -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-45">
+        <svg viewBox="0 0 1440 900" class="w-full h-full object-cover" preserveAspectRatio="none">
+            <polygon points="720,450 0,0 260,0" fill="#FFF9C4"/>
+            <polygon points="720,450 520,0 820,0" fill="#FFF9C4"/>
+            <polygon points="720,450 1120,0 1440,0" fill="#FFF9C4"/>
+            <polygon points="720,450 1440,320 1440,620" fill="#FFF9C4"/>
+            <polygon points="720,450 0,340 0,650" fill="#FFF9C4"/>
+        </svg>
+    </div>
+
+    <!-- Jerapah Kiri (Tampil di Layar Sedang - Besar) -->
+    <div class="hidden lg:block fixed left-0 bottom-0 w-52 xl:w-64 z-10 pointer-events-none giraffe-left">
+        <svg viewBox="0 0 260 620" class="w-full h-auto drop-shadow-md">
+            <!-- Leher & Badan -->
+            <path d="M-20,620 L-10,210 C0,140 50,115 95,125 L115,185 C85,220 75,380 85,620 Z" fill="#FFD54F" stroke="#E65100" stroke-width="3"/>
+            <!-- Totol Jerapah -->
+            <ellipse cx="35" cy="240" rx="16" ry="22" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="22" cy="310" rx="18" ry="25" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="45" cy="380" rx="15" ry="24" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="25" cy="460" rx="20" ry="28" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="45" cy="540" rx="17" ry="25" fill="#D84315" opacity="0.85"/>
+            <!-- Tanduk (Ossicones) -->
+            <rect x="65" y="42" width="10" height="36" rx="5" fill="#F57F17" transform="rotate(-12 65 42)"/>
+            <circle cx="66" cy="40" r="11" fill="#E65100"/>
+            <rect x="102" y="38" width="10" height="36" rx="5" fill="#F57F17" transform="rotate(8 102 38)"/>
+            <circle cx="109" cy="36" r="11" fill="#E65100"/>
+            <!-- Telinga Kiri -->
+            <path d="M55,82 C20,62 12,92 48,108 Z" fill="#FFB300" stroke="#E65100" stroke-width="2.5"/>
+            <path d="M50,86 C28,74 24,90 46,100 Z" fill="#FF80AB"/>
+            <!-- Rambut Jambul Cokelat -->
+            <path d="M72,68 C95,55 125,65 135,88 C115,82 95,85 78,92 Z" fill="#4E342E"/>
+            <!-- Kepala -->
+            <ellipse cx="115" cy="118" rx="64" ry="48" fill="#FFE082" stroke="#E65100" stroke-width="3" transform="rotate(10 115 118)"/>
+            <!-- Moncong -->
+            <ellipse cx="155" cy="130" rx="34" ry="26" fill="#FFF8E1" stroke="#FFB300" stroke-width="2"/>
+            <!-- Hidung & Senyum -->
+            <circle cx="166" cy="122" r="4" fill="#5D4037"/>
+            <circle cx="152" cy="125" r="3.5" fill="#5D4037"/>
+            <path d="M142,140 Q158,150 172,138" fill="none" stroke="#5D4037" stroke-width="3" stroke-linecap="round"/>
+            <!-- Mata Lucu -->
+            <circle cx="122" cy="105" r="10" fill="#212121"/>
+            <circle cx="125" cy="102" r="3.5" fill="#FFFFFF"/>
+            <!-- Pipi Merah -->
+            <ellipse cx="132" cy="125" rx="9" ry="5" fill="#FF8A80" opacity="0.65"/>
+        </svg>
+    </div>
+
+    <!-- Jerapah Kanan (Tampil di Layar Sedang - Besar) -->
+    <div class="hidden lg:block fixed right-0 bottom-0 w-52 xl:w-64 z-10 pointer-events-none giraffe-right">
+        <svg viewBox="0 0 260 620" class="w-full h-auto drop-shadow-md">
+            <!-- Leher & Badan -->
+            <path d="M280,620 L270,210 C260,140 210,115 165,125 L145,185 C175,220 185,380 175,620 Z" fill="#FFD54F" stroke="#E65100" stroke-width="3"/>
+            <!-- Totol Jerapah -->
+            <ellipse cx="225" cy="240" rx="16" ry="22" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="238" cy="310" rx="18" ry="25" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="215" cy="380" rx="15" ry="24" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="235" cy="460" rx="20" ry="28" fill="#D84315" opacity="0.85"/>
+            <ellipse cx="215" cy="540" rx="17" ry="25" fill="#D84315" opacity="0.85"/>
+            <!-- Tanduk -->
+            <rect x="185" y="42" width="10" height="36" rx="5" fill="#F57F17" transform="rotate(12 185 42)"/>
+            <circle cx="194" cy="40" r="11" fill="#E65100"/>
+            <rect x="148" y="38" width="10" height="36" rx="5" fill="#F57F17" transform="rotate(-8 148 38)"/>
+            <circle cx="151" cy="36" r="11" fill="#E65100"/>
+            <!-- Telinga Kanan -->
+            <path d="M205,82 C240,62 248,92 212,108 Z" fill="#FFB300" stroke="#E65100" stroke-width="2.5"/>
+            <path d="M210,86 C232,74 236,90 214,100 Z" fill="#FF80AB"/>
+            <!-- Rambut Jambul Cokelat -->
+            <path d="M188,68 C165,55 135,65 125,88 C145,82 165,85 182,92 Z" fill="#4E342E"/>
+            <!-- Kepala -->
+            <ellipse cx="145" cy="118" rx="64" ry="48" fill="#FFE082" stroke="#E65100" stroke-width="3" transform="rotate(-10 145 118)"/>
+            <!-- Moncong -->
+            <ellipse cx="105" cy="130" rx="34" ry="26" fill="#FFF8E1" stroke="#FFB300" stroke-width="2"/>
+            <!-- Hidung & Senyum -->
+            <circle cx="94" cy="122" r="4" fill="#5D4037"/>
+            <circle cx="108" cy="125" r="3.5" fill="#5D4037"/>
+            <path d="M88,138 Q102,150 118,140" fill="none" stroke="#5D4037" stroke-width="3" stroke-linecap="round"/>
+            <!-- Mata Lucu -->
+            <circle cx="138" cy="105" r="10" fill="#212121"/>
+            <circle cx="135" cy="102" r="3.5" fill="#FFFFFF"/>
+            <!-- Pipi Merah -->
+            <ellipse cx="128" cy="125" rx="9" ry="5" fill="#FF8A80" opacity="0.65"/>
+        </svg>
+    </div>
+
+    <!-- Dekorasi Rumput Hijau & Anak Ceria di Pojok Kiri Bawah -->
+    <div class="fixed bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#558B2F] via-[#7CB342] to-transparent pointer-events-none z-10"></div>
+    <div class="hidden sm:block fixed left-2 bottom-1 w-28 md:w-36 z-30 pointer-events-none">
+        <svg viewBox="0 0 180 190" class="w-full h-auto drop-shadow-lg">
+            <!-- Bintang kecil sekitar anak -->
+            <polygon points="22,35 26,43 35,44 28,50 30,59 22,54 14,59 16,50 9,44 18,43" fill="#FFEA00" stroke="#F57F17" stroke-width="1.5"/>
+            <circle cx="155" cy="42" r="5" fill="#00E5FF"/>
+            <circle cx="165" cy="65" r="4" fill="#FF4081"/>
+            <!-- Tangan terangkat ceria -->
+            <path d="M55,105 L28,78 C22,72 30,64 37,70 L64,95 Z" fill="#FFCCBC" stroke="#3E2723" stroke-width="2.5"/>
+            <path d="M115,105 L142,78 C148,72 140,64 133,70 L106,95 Z" fill="#FFCCBC" stroke="#3E2723" stroke-width="2.5"/>
+            <!-- Kaki Melompat -->
+            <path d="M68,145 L52,172 L68,178 L82,150 Z" fill="#FFCCBC" stroke="#3E2723" stroke-width="2.5"/>
+            <ellipse cx="55" cy="176" rx="14" ry="8" fill="#1E88E5" stroke="#111" stroke-width="2"/>
+            <path d="M102,145 L122,168 L134,158 L112,140 Z" fill="#FFCCBC" stroke="#3E2723" stroke-width="2.5"/>
+            <ellipse cx="132" cy="164" rx="14" ry="8" fill="#1E88E5" stroke="#111" stroke-width="2" transform="rotate(-25 132 164)"/>
+            <!-- Celana Pendek Oranye -->
+            <path d="M62,126 L108,126 L114,150 L90,150 L85,138 L80,150 L56,150 Z" fill="#FF6D00" stroke="#3E2723" stroke-width="2.5"/>
+            <!-- Kaos Hijau Bintang -->
+            <path d="M58,92 L112,92 L110,128 L60,128 Z" rx="8" fill="#00C853" stroke="#3E2723" stroke-width="2.5"/>
+            <polygon points="85,100 88,108 96,108 90,113 92,121 85,116 78,121 80,113 74,108 82,108" fill="#FFFFFF"/>
+            <!-- Kepala & Rambut Cokelat -->
+            <circle cx="85" cy="62" r="32" fill="#FFCCBC" stroke="#3E2723" stroke-width="2.5"/>
+            <path d="M53,58 C50,28 120,24 117,58 C110,42 95,44 85,36 C75,45 60,42 53,58 Z" fill="#4E342E" stroke="#3E2723" stroke-width="2"/>
+            <!-- Wajah Tertawa Lebar -->
+            <path d="M70,56 Q75,50 80,56" fill="none" stroke="#3E2723" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M90,56 Q95,50 100,56" fill="none" stroke="#3E2723" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M74,68 Q85,84 96,68 Z" fill="#D50000" stroke="#3E2723" stroke-width="2"/>
+            <ellipse cx="66" cy="65" rx="5" ry="3" fill="#FF8A80"/>
+            <ellipse cx="104" cy="65" rx="5" ry="3" fill="#FF8A80"/>
+        </svg>
+    </div>
+
+    <!-- KONTEN UTAMA APLIKASI -->
+    <div class="relative z-20 w-full max-w-[1140px] mx-auto px-2 sm:px-4 pt-2 pb-6 flex flex-col items-center">
+
+        <!-- HEADER ATAS: Badge Bahasa + Judul Utama + 4 Tombol Lingkaran -->
+        <header class="w-full flex flex-wrap items-center justify-between gap-2 mb-2 px-1 sm:px-3">
+
+            <!-- Kiri: Badge Gelombang Indonesia English -->
+            <div class="relative flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 185 88" class="w-28 sm:w-36 md:w-44 h-auto drop-shadow">
+                    <path d="M18,22 Q32,6 52,15 Q72,4 92,14 Q112,3 132,14 Q155,6 168,24 Q182,42 168,62 Q155,80 132,72 Q112,84 92,73 Q72,83 52,72 Q30,80 18,62 Q4,42 18,22 Z"
+                          fill="#00B0FF" stroke="#FFFFFF" stroke-width="4.5"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center leading-tight pointer-events-none">
+                    <span class="text-white font-extrabold text-xs sm:text-sm md:text-base badge-text">Indonesia</span>
+                    <span class="text-[#FF1744] font-extrabold text-xs sm:text-sm md:text-base bg-white/90 px-2 rounded-full mt-0.5 shadow-sm">English</span>
+                </div>
+            </div>
+
+            <!-- Tengah: Judul Poster Huruf & Angka -->
+            <div class="text-center flex-1 min-w-[180px]">
+                <h1 class="title-poster text-2xl sm:text-4xl md:text-[44px] leading-none select-none">
+                    Huruf &amp; Angka
+                </h1>
+            </div>
+
+            <!-- Kanan: 4 Tombol Kontrol (Ini/En, Kata, Ujian, Musik) -->
+            <div class="flex items-center gap-2 sm:gap-3 mx-auto sm:mx-0">
+
+                <!-- 1. Tombol Bahasa: Ini / En -->
+                <button id="btn-lang" onclick="toggleLanguage()" class="flex flex-col items-center group focus:outline-none" title="Ganti Bahasa Indonesia / English">
+                    <div id="icon-lang" class="menu-btn w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-gradient-to-b from-[#40C4FF] to-[#0091EA] border-[3px] border-white flex flex-col items-center justify-center text-white">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+                            <path d="M16 16h5v5"/>
+                        </svg>
+                        <span id="lang-badge" class="text-[9px] sm:text-[10px] font-black uppercase leading-none mt-0.5 bg-white text-[#0091EA] px-1.5 rounded-full">ID</span>
+                    </div>
+                    <span class="text-[11px] sm:text-xs font-extrabold text-gray-900 mt-0.5 bg-white/80 px-1.5 rounded-md shadow-xs">Ini / En</span>
+                </button>
+
+                <!-- 2. Tombol Mode: Kata -->
+                <button id="btn-word" onclick="toggleWordMode()" class="flex flex-col items-center group focus:outline-none" title="Mode Baca Huruf atau Kata">
+                    <div id="icon-word" class="menu-btn w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-gradient-to-b from-[#FFAB40] to-[#FF6D00] border-[3px] border-white flex items-center justify-center text-white">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                        </svg>
+                    </div>
+                    <span id="label-word" class="text-[11px] sm:text-xs font-extrabold text-gray-900 mt-0.5 bg-white/80 px-1.5 rounded-md shadow-xs">Kata</span>
+                </button>
+
+                <!-- 3. Tombol Mode: Ujian -->
+                <button id="btn-quiz" onclick="toggleQuizMode()" class="flex flex-col items-center group focus:outline-none" title="Mulai / Keluar Ujian Tebak Gambar">
+                    <div id="icon-quiz" class="menu-btn w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-gradient-to-b from-[#FF5252] to-[#D50000] border-[3px] border-white flex items-center justify-center text-white">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+                            <line x1="12" y1="2" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <span class="text-[11px] sm:text-xs font-extrabold text-gray-900 mt-0.5 bg-white/80 px-1.5 rounded-md shadow-xs">Ujian</span>
+                </button>
+
+                <!-- 4. Tombol: Musik -->
+                <button id="btn-music" onclick="toggleMusic()" class="flex flex-col items-center group focus:outline-none" title="Nyalakan / Matikan Musik Latar">
+                    <div id="icon-music" class="menu-btn w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-gradient-to-b from-[#4FC3F7] to-[#0288D1] border-[3px] border-white flex items-center justify-center text-white relative">
+                        <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                        <span id="music-off-line" class="hidden absolute w-9 h-1 bg-red-600 rotate-45 rounded-full border border-white"></span>
+                    </div>
+                    <span class="text-[11px] sm:text-xs font-extrabold text-gray-900 mt-0.5 bg-white/80 px-1.5 rounded-md shadow-xs">Musik</span>
+                </button>
+
+            </div>
+        </header>
+
+        <!-- BANNER STATUS / MODE UJIAN INTERAKTIF -->
+        <div id="status-bar" class="w-full max-w-3xl mb-2 px-3 py-1.5 rounded-2xl bg-white/95 border-2 border-[#FFA000] shadow-md flex items-center justify-between gap-2 text-xs sm:text-sm md:text-base transition-all">
+            <div class="flex items-center gap-2">
+                <span id="mode-pill" class="px-2.5 py-0.5 rounded-full font-extrabold text-white bg-[#0091EA] text-xs uppercase tracking-wide">
+                    Belajar: Huruf &amp; Angka
+                </span>
+                <span id="status-text" class="font-bold text-gray-800">
+                    Sentuh kartu mana saja untuk mendengar suaranya!
+                </span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+                <button id="btn-repeat-quiz" onclick="repeatQuizQuestion()" class="hidden px-2.5 py-1 rounded-xl bg-[#FF6D00] hover:bg-[#E65100] text-white font-bold text-xs shadow active:scale-95">
+                    🔊 Ulangi Soal
+                </button>
+                <div id="quiz-score-box" class="hidden items-center gap-1 bg-yellow-100 border border-yellow-400 px-2.5 py-0.5 rounded-full font-extrabold text-amber-800">
+                    <span>⭐</span>
+                    <span id="quiz-score">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAPAN UTAMA POSTER (GRID 40 KARTU) -->
+        <main class="w-full bg-white/95 p-1.5 sm:p-2.5 rounded-[24px] sm:rounded-[32px] shadow-[0_10px_28px_rgba(230,81,0,0.32)] border-[4px] border-[#FFF8E1]">
+
+            <!-- Bagian Atas: 30 Kartu (5 Baris x 6 Kolom: A-Z + 4 Warna) -->
+            <div id="grid-main" class="grid grid-cols-3 sm:grid-cols-6 border-2 border-[#E0A96D] rounded-t-[18px] sm:rounded-t-[24px] overflow-hidden bg-[#E0A96D] gap-[1.5px]">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+
+            <!-- Bagian Bawah: 10 Kartu Angka (2 Baris x 5 Kolom: 1-10) -->
+            <div id="grid-numbers" class="grid grid-cols-5 border-x-2 border-b-2 border-[#E0A96D] rounded-b-[18px] sm:rounded-b-[24px] overflow-hidden bg-[#E0A96D] gap-[1.5px] mx-auto w-full sm:w-[90%]">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+
+        </main>
+
+        <!-- Footer Info -->
+        <footer class="w-full flex items-center justify-between mt-2 px-3 text-[11px] sm:text-xs font-bold text-amber-950/80">
+            <span>🎮 Game Edukasi Anak Interaktif (ID / EN)</span>
+            <span class="bg-[#FFEA00] border border-amber-500 px-2.5 py-0.5 rounded-full shadow-xs">Item No.: LWQ064</span>
+        </footer>
+
+    </div>
+
+    <script>
+        // =========================================================================
+        // 1. DATABASE 40 ITEM EDUKASI (PERSIS SEPERTI GAMBAR POSTER)
+        // =========================================================================
+        const itemsData = [
+            // BARIS 1: A - F
+            {
+                id: 'A', type: 'letter', upper: 'A', lower: 'a', color: '#E53935',
+                wordId: 'Ayam', wordEn: 'Chicken',
+                svg: `<svg viewBox="0 0 100 85" class="w-12 h-10 sm:w-16 sm:h-13">
+                        <path d="M22,42 Q10,28 18,48 Q8,45 18,56 Q12,58 24,62" fill="#FF7043" stroke="#212121" stroke-width="2"/>
+                        <ellipse cx="48" cy="54" rx="22" ry="18" fill="#FFFFFF" stroke="#212121" stroke-width="2.2"/>
+                        <circle cx="64" cy="36" r="13" fill="#FFFFFF" stroke="#212121" stroke-width="2.2"/>
+                        <path d="M58,23 C58,15 64,15 65,22 C67,14 73,16 71,24" fill="#E53935" stroke="#212121" stroke-width="1.8"/>
+                        <polygon points="76,34 86,38 76,42" fill="#FFB300" stroke="#212121" stroke-width="1.8"/>
+                        <path d="M72,42 Q75,50 69,48" fill="#E53935" stroke="#212121" stroke-width="1.5"/>
+                        <circle cx="67" cy="33" r="2.5" fill="#111"/>
+                        <path d="M40,52 Q52,46 54,58 Q43,62 40,52 Z" fill="#FFF9C4" stroke="#212121" stroke-width="1.8"/>
+                        <path d="M44,71 L44,80 M40,80 L48,80 M54,71 L54,80 M50,80 L58,80" stroke="#F57F17" stroke-width="2.5" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 'B', type: 'letter', upper: 'B', lower: 'b', color: '#2E7D32',
+                wordId: 'Badak', wordEn: 'Rhinoceros',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <rect x="26" y="58" width="10" height="18" rx="3" fill="#607D8B" stroke="#212121" stroke-width="2"/>
+                        <rect x="42" y="58" width="10" height="18" rx="3" fill="#546E7A" stroke="#212121" stroke-width="2"/>
+                        <rect x="64" y="58" width="10" height="18" rx="3" fill="#607D8B" stroke="#212121" stroke-width="2"/>
+                        <rect x="78" y="58" width="10" height="18" rx="3" fill="#546E7A" stroke="#212121" stroke-width="2"/>
+                        <ellipse cx="54" cy="44" rx="32" ry="21" fill="#78909C" stroke="#212121" stroke-width="2.2"/>
+                        <path d="M75,32 Q95,28 98,46 Q94,58 76,55 Z" fill="#78909C" stroke="#212121" stroke-width="2.2"/>
+                        <path d="M96,42 Q106,34 103,22 Q95,32 91,39 Z" fill="#ECEFF1" stroke="#212121" stroke-width="2"/>
+                        <path d="M88,37 Q93,32 91,26 Q86,31 85,36 Z" fill="#ECEFF1" stroke="#212121" stroke-width="1.8"/>
+                        <ellipse cx="76" cy="27" rx="4" ry="7" fill="#607D8B" stroke="#212121" stroke-width="2"/>
+                        <circle cx="84" cy="40" r="2.5" fill="#111"/>
+                        <path d="M44,26 L44,61 M65,26 L65,61" stroke="#455A64" stroke-width="1.8"/>
+                      </svg>`
+            },
+            {
+                id: 'C', type: 'letter', upper: 'C', lower: 'c', color: '#1565C0',
+                wordId: 'Cangkul', wordEn: 'Hoe',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <ellipse cx="52" cy="44" rx="18" ry="12" fill="none" stroke="#8D6E63" stroke-width="1.5" opacity="0.6"/>
+                        <rect x="20" y="38" width="76" height="8" rx="4" fill="#A1887F" stroke="#3E2723" stroke-width="2" transform="rotate(-24 58 42)"/>
+                        <path d="M22,42 L44,66 L26,76 L10,54 Z" fill="#455A64" stroke="#111" stroke-width="2.2"/>
+                        <path d="M26,76 L44,66 L41,62 L23,72 Z" fill="#B0BEC5"/>
+                      </svg>`
+            },
+            {
+                id: 'D', type: 'letter', upper: 'D', lower: 'd', color: '#EF6C00',
+                wordId: 'Daun', wordEn: 'Leaf',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M16,66 Q36,20 96,24 Q74,68 24,62 Z" fill="#2E7D32" stroke="#1B5E20" stroke-width="2.2"/>
+                        <path d="M12,70 Q50,45 92,26" fill="none" stroke="#A5D6A7" stroke-width="2.8" stroke-linecap="round"/>
+                        <path d="M38,53 L44,38 M54,44 L62,30 M70,36 L77,26 M44,51 L58,56 M60,42 L74,46" stroke="#A5D6A7" stroke-width="1.8" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 'E', type: 'letter', upper: 'E', lower: 'e', color: '#C2185B',
+                wordId: 'Es Krim', wordEn: 'Ice Cream',
+                svg: `<svg viewBox="0 0 100 85" class="w-12 h-10 sm:w-16 sm:h-13">
+                        <polygon points="36,42 64,42 50,78" fill="#FFB74D" stroke="#5D4037" stroke-width="2.2"/>
+                        <line x1="41" y1="50" x2="57" y2="58" stroke="#E65100" stroke-width="1.5"/>
+                        <line x1="59" y1="50" x2="43" y2="58" stroke="#E65100" stroke-width="1.5"/>
+                        <ellipse cx="50" cy="39" rx="18" ry="11" fill="#F48FB1" stroke="#880E4F" stroke-width="2"/>
+                        <ellipse cx="50" cy="27" rx="14" ry="9" fill="#FF80AB" stroke="#880E4F" stroke-width="2"/>
+                        <circle cx="50" cy="16" r="6" fill="#D50000" stroke="#212121" stroke-width="1.8"/>
+                        <rect x="55" y="10" width="4" height="16" rx="2" fill="#4E342E" transform="rotate(25 55 10)"/>
+                      </svg>`
+            },
+            {
+                id: 'F', type: 'letter', upper: 'F', lower: 'f', color: '#1B5E20',
+                wordId: 'Foto', wordEn: 'Photo',
+                svg: `<svg viewBox="0 0 100 85" class="w-12 h-10 sm:w-16 sm:h-13">
+                        <rect x="26" y="16" width="16" height="8" rx="2" fill="#37474F" stroke="#111" stroke-width="2"/>
+                        <rect x="18" y="23" width="64" height="46" rx="8" fill="#455A64" stroke="#111" stroke-width="2.2"/>
+                        <rect x="18" y="32" width="64" height="28" fill="#263238"/>
+                        <circle cx="50" cy="46" r="16" fill="#CFD8DC" stroke="#111" stroke-width="2.2"/>
+                        <circle cx="50" cy="46" r="10" fill="#0277BD" stroke="#111" stroke-width="2"/>
+                        <circle cx="46" cy="42" r="3" fill="#FFFFFF"/>
+                        <rect x="66" y="27" width="10" height="6" rx="2" fill="#FFEA00"/>
+                      </svg>`
+            },
+
+            // BARIS 2: G - L
+            {
+                id: 'G', type: 'letter', upper: 'G', lower: 'g', color: '#4A148C',
+                wordId: 'Gajah', wordEn: 'Elephant',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <rect x="30" y="55" width="11" height="20" rx="4" fill="#5C6BC0" stroke="#111" stroke-width="2"/>
+                        <rect x="46" y="55" width="11" height="20" rx="4" fill="#3F51B5" stroke="#111" stroke-width="2"/>
+                        <rect x="62" y="55" width="11" height="20" rx="4" fill="#5C6BC0" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="52" cy="42" rx="26" ry="20" fill="#7986CB" stroke="#111" stroke-width="2.2"/>
+                        <path d="M72,30 C86,28 92,42 86,58 C84,65 92,68 96,62" fill="none" stroke="#7986CB" stroke-width="10" stroke-linecap="round"/>
+                        <path d="M72,30 C86,28 92,42 86,58 C84,65 92,68 96,62" fill="none" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="62" cy="38" rx="11" ry="15" fill="#9FA8DA" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="62" cy="38" rx="6" ry="9" fill="#F48FB1"/>
+                        <circle cx="77" cy="35" r="2.5" fill="#111"/>
+                        <path d="M78,46 Q88,48 90,43" fill="none" stroke="#FFF" stroke-width="3" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 'H', type: 'letter', upper: 'H', lower: 'h', color: '#00838F',
+                wordId: 'Helikopter', wordEn: 'Helicopter',
+                svg: `<svg viewBox="0 0 115 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <line x1="20" y1="16" x2="96" y2="16" stroke="#212121" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="58" y1="16" x2="58" y2="27" stroke="#212121" stroke-width="3"/>
+                        <path d="M16,42 L42,38 L42,48 L16,46 Z" fill="#E53935" stroke="#111" stroke-width="2"/>
+                        <circle cx="14" cy="44" r="7" fill="none" stroke="#212121" stroke-width="2"/>
+                        <ellipse cx="62" cy="44" rx="26" ry="17" fill="#E53935" stroke="#111" stroke-width="2.2"/>
+                        <path d="M62,30 Q84,30 85,44 L62,44 Z" fill="#81D4FA" stroke="#111" stroke-width="2"/>
+                        <path d="M44,68 L84,68 M52,60 L48,68 M72,60 L76,68" stroke="#212121" stroke-width="3" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 'I', type: 'letter', upper: 'I', lower: 'i', color: '#0D47A1',
+                wordId: 'Ikan', wordEn: 'Fish',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <polygon points="80,44 100,26 96,62" fill="#FF9800" stroke="#111" stroke-width="2.2"/>
+                        <path d="M44,24 Q58,12 68,26" fill="#FFEA00" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="52" cy="44" rx="32" ry="21" fill="#03A9F4" stroke="#111" stroke-width="2.2"/>
+                        <path d="M48,24 Q42,44 48,64" fill="none" stroke="#FFEA00" stroke-width="5"/>
+                        <path d="M62,26 Q56,44 62,62" fill="none" stroke="#FF9800" stroke-width="5"/>
+                        <circle cx="32" cy="40" r="4.5" fill="#FFF" stroke="#111" stroke-width="1.8"/>
+                        <circle cx="31" cy="40" r="2" fill="#111"/>
+                        <path d="M21,48 Q27,52 32,48" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 'J', type: 'letter', upper: 'J', lower: 'j', color: '#EF6C00',
+                wordId: 'Jendela', wordEn: 'Window',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <rect x="26" y="16" width="58" height="54" rx="2" fill="#B3E5FC" stroke="#4E342E" stroke-width="3"/>
+                        <line x1="55" y1="16" x2="55" y2="70" stroke="#4E342E" stroke-width="3"/>
+                        <line x1="26" y1="43" x2="84" y2="43" stroke="#4E342E" stroke-width="3"/>
+                        <polygon points="14,12 34,16 32,72 12,76" fill="#29B6F6" stroke="#111" stroke-width="2"/>
+                        <polygon points="96,12 76,16 78,72 98,76" fill="#29B6F6" stroke="#111" stroke-width="2"/>
+                      </svg>`
+            },
+            {
+                id: 'K', type: 'letter', upper: 'K', lower: 'k', color: '#0277BD',
+                wordId: 'Kelereng', wordEn: 'Marble',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <circle cx="36" cy="46" r="18" fill="#80DEEA" stroke="#006064" stroke-width="2"/>
+                        <path d="M24,38 Q36,52 48,38 Q36,60 24,38 Z" fill="#EC407A"/>
+                        <circle cx="30" cy="36" r="3.5" fill="#FFF"/>
+                        <circle cx="74" cy="48" r="18" fill="#FFF59D" stroke="#F57F17" stroke-width="2"/>
+                        <path d="M62,42 Q74,56 86,42 Q74,62 62,42 Z" fill="#1E88E5"/>
+                        <circle cx="68" cy="38" r="3.5" fill="#FFF"/>
+                      </svg>`
+            },
+            {
+                id: 'L', type: 'letter', upper: 'L', lower: 'l', color: '#E65100',
+                wordId: 'Lemon', wordEn: 'Lemon',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M62,24 Q78,10 90,24 Q76,34 62,24 Z" fill="#2E7D32" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="52" cy="40" rx="22" ry="17" fill="#FFEA00" stroke="#F57F17" stroke-width="2.2" transform="rotate(-15 52 40)"/>
+                        <ellipse cx="64" cy="56" rx="22" ry="17" fill="#FFD600" stroke="#F57F17" stroke-width="2.2" transform="rotate(10 64 56)"/>
+                        <circle cx="86" cy="60" r="3.5" fill="#FFD600" stroke="#F57F17" stroke-width="1.8"/>
+                      </svg>`
+            },
+
+            // BARIS 3: M - R
+            {
+                id: 'M', type: 'letter', upper: 'M', lower: 'm', color: '#1A237E',
+                wordId: 'Mangga', wordEn: 'Mango',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M48,22 Q64,10 76,22 Q62,30 48,22 Z" fill="#388E3C" stroke="#111" stroke-width="2"/>
+                        <path d="M32,45 C30,26 56,22 66,36 C74,48 64,66 46,64 C35,62 33,54 32,45 Z" fill="#FFB300" stroke="#E65100" stroke-width="2.2"/>
+                        <ellipse cx="64" cy="56" rx="18" ry="12" fill="#FFCA28" stroke="#E65100" stroke-width="2"/>
+                      </svg>`
+            },
+            {
+                id: 'N', type: 'letter', upper: 'N', lower: 'n', color: '#D32F2F',
+                wordId: 'Nyamuk', wordEn: 'Mosquito',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <ellipse cx="56" cy="26" rx="16" ry="8" fill="#E0F7FA" stroke="#37474F" stroke-width="1.8" transform="rotate(-20 56 26)"/>
+                        <path d="M42,48 L26,64 M54,50 L46,70 M64,48 L74,68" stroke="#212121" stroke-width="2.2" stroke-linecap="round"/>
+                        <ellipse cx="64" cy="48" rx="18" ry="8" fill="#5D4037" stroke="#111" stroke-width="2" transform="rotate(15 64 48)"/>
+                        <circle cx="42" cy="40" r="7" fill="#3E2723" stroke="#111" stroke-width="2"/>
+                        <line x1="35" y1="42" x2="18" y2="52" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="40" cy="38" r="2.5" fill="#FF1744"/>
+                      </svg>`
+            },
+            {
+                id: 'O', type: 'letter', upper: 'O', lower: 'o', color: '#E65100',
+                wordId: 'Obor', wordEn: 'Torch',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M44,38 C26,34 22,18 38,22 C30,10 48,14 48,26 C56,18 60,32 48,40 Z" fill="#FF6D00" stroke="#D50000" stroke-width="2"/>
+                        <circle cx="42" cy="30" r="5" fill="#FFEA00"/>
+                        <polygon points="44,36 86,62 80,70 40,42" fill="#6D4C41" stroke="#212121" stroke-width="2.2"/>
+                      </svg>`
+            },
+            {
+                id: 'P', type: 'letter', upper: 'P', lower: 'p', color: '#C2185B',
+                wordId: 'Payung', wordEn: 'Umbrella',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M62,36 L42,66 C39,71 45,75 49,70" fill="none" stroke="#4E342E" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M36,24 C56,12 84,26 86,52 Q74,46 66,50 Q58,42 48,44 Q40,36 36,24 Z" fill="#0288D1" stroke="#111" stroke-width="2.2"/>
+                        <path d="M66,20 L58,45 M76,28 L68,49" stroke="#81D4FA" stroke-width="1.8"/>
+                      </svg>`
+            },
+            {
+                id: 'Q', type: 'letter', upper: 'Q', lower: 'q', color: '#1B5E20',
+                wordId: 'Quran', wordEn: 'Quran',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <polygon points="24,42 56,22 88,36 56,60" fill="#4E342E" stroke="#111" stroke-width="2.2"/>
+                        <polygon points="24,42 56,60 56,70 24,52" fill="#FFF8E1" stroke="#111" stroke-width="2"/>
+                        <polygon points="88,36 56,60 56,70 88,46" fill="#3E2723" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="56" cy="40" rx="12" ry="7" fill="none" stroke="#FFD54F" stroke-width="2.2"/>
+                      </svg>`
+            },
+            {
+                id: 'R', type: 'letter', upper: 'R', lower: 'r', color: '#D32F2F',
+                wordId: 'Rumah', wordEn: 'House',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <rect x="30" y="40" width="50" height="32" fill="#FFF9C4" stroke="#111" stroke-width="2.2"/>
+                        <polygon points="22,42 55,16 88,42" fill="#E53935" stroke="#111" stroke-width="2.2"/>
+                        <rect x="48" y="50" width="14" height="22" fill="#8D6E63" stroke="#111" stroke-width="2"/>
+                        <rect x="34" y="48" width="10" height="10" fill="#4FC3F7" stroke="#111" stroke-width="1.8"/>
+                        <rect x="66" y="48" width="10" height="10" fill="#4FC3F7" stroke="#111" stroke-width="1.8"/>
+                      </svg>`
+            },
+
+            // BARIS 4: S - X
+            {
+                id: 'S', type: 'letter', upper: 'S', lower: 's', color: '#880E4F',
+                wordId: 'Sapu', wordEn: 'Broom',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <line x1="18" y1="22" x2="68" y2="48" stroke="#8D6E63" stroke-width="5" stroke-linecap="round"/>
+                        <polygon points="64,42 96,52 84,74 58,52" fill="#D7CCC8" stroke="#4E342E" stroke-width="2"/>
+                        <line x1="68" y1="48" x2="90" y2="62" stroke="#5D4037" stroke-width="1.8"/>
+                        <line x1="63" y1="51" x2="85" y2="68" stroke="#5D4037" stroke-width="1.8"/>
+                      </svg>`
+            },
+            {
+                id: 'T', type: 'letter', upper: 'T', lower: 't', color: '#1B5E20',
+                wordId: 'Terompet', wordEn: 'Trumpet',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M42,50 L46,66 L58,64 L54,48" fill="#37474F" stroke="#111" stroke-width="2"/>
+                        <polygon points="28,44 68,26 76,60 28,50" fill="#ECEFF1" stroke="#111" stroke-width="2.2"/>
+                        <ellipse cx="72" cy="43" rx="7" ry="17" fill="#D50000" stroke="#111" stroke-width="2"/>
+                        <rect x="20" y="43" width="10" height="8" rx="2" fill="#D50000" stroke="#111" stroke-width="2"/>
+                      </svg>`
+            },
+            {
+                id: 'U', type: 'letter', upper: 'U', lower: 'u', color: '#2E7D32',
+                wordId: 'Udang', wordEn: 'Shrimp',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M36,24 C64,20 82,38 74,58 C68,70 50,70 46,62 C56,60 60,48 52,40 C44,34 34,34 36,24 Z" fill="#FF7043" stroke="#BF360C" stroke-width="2.2"/>
+                        <path d="M36,26 Q18,22 14,32 M36,30 Q20,32 16,40" fill="none" stroke="#BF360C" stroke-width="1.8" stroke-linecap="round"/>
+                        <circle cx="40" cy="28" r="2.2" fill="#111"/>
+                        <polygon points="46,62 34,68 42,74" fill="#FFAB91" stroke="#BF360C" stroke-width="1.8"/>
+                      </svg>`
+            },
+            {
+                id: 'V', type: 'letter', upper: 'V', lower: 'v', color: '#212121',
+                wordId: 'Vas', wordEn: 'Vase',
+                svg: `<svg viewBox="0 0 100 85" class="w-12 h-10 sm:w-16 sm:h-13">
+                        <path d="M36,20 L64,20 L58,32 C72,42 70,64 60,72 L40,72 C30,64 28,42 42,32 Z" fill="#FFB300" stroke="#111" stroke-width="2.2"/>
+                        <path d="M34,46 L66,46 M34,56 L66,56" stroke="#D50000" stroke-width="4"/>
+                      </svg>`
+            },
+            {
+                id: 'W', type: 'letter', upper: 'W', lower: 'w', color: '#1565C0',
+                wordId: 'Wortel', wordEn: 'Carrot',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <path d="M68,26 Q82,12 88,22 M72,30 Q90,22 92,32" fill="none" stroke="#2E7D32" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M22,64 L66,24 C74,24 78,30 74,38 L22,64 Z" fill="#FF6D00" stroke="#E65100" stroke-width="2.2"/>
+                        <path d="M40,56 L84,36 C90,36 92,42 88,48 L40,56 Z" fill="#FF9100" stroke="#E65100" stroke-width="2"/>
+                      </svg>`
+            },
+            {
+                id: 'X', type: 'letter', upper: 'X', lower: 'x', color: '#111111',
+                wordId: 'Xilofon', wordEn: 'Xylophone',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <rect x="20" y="24" width="11" height="44" rx="3" fill="#E53935" stroke="#111" stroke-width="1.8"/>
+                        <rect x="34" y="27" width="11" height="39" rx="3" fill="#FF9800" stroke="#111" stroke-width="1.8"/>
+                        <rect x="48" y="30" width="11" height="34" rx="3" fill="#FFEA00" stroke="#111" stroke-width="1.8"/>
+                        <rect x="62" y="33" width="11" height="29" rx="3" fill="#00C853" stroke="#111" stroke-width="1.8"/>
+                        <rect x="76" y="36" width="11" height="24" rx="3" fill="#0288D1" stroke="#111" stroke-width="1.8"/>
+                        <line x1="28" y1="74" x2="54" y2="52" stroke="#5D4037" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="55" cy="51" r="4.5" fill="#D50000"/>
+                      </svg>`
+            },
+
+            // BARIS 5: Y, Z + 4 KARTU WARNA
+            {
+                id: 'Y', type: 'letter', upper: 'Y', lower: 'y', color: '#F57F17',
+                wordId: 'Yoyo', wordEn: 'Yoyo',
+                svg: `<svg viewBox="0 0 100 85" class="w-12 h-10 sm:w-16 sm:h-13">
+                        <path d="M50,45 Q22,55 34,72 Q52,82 76,68" fill="none" stroke="#455A64" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="50" cy="42" r="20" fill="#1E88E5" stroke="#111" stroke-width="2.2"/>
+                        <circle cx="50" cy="42" r="13" fill="#FFEA00" stroke="#111" stroke-width="2"/>
+                        <circle cx="50" cy="42" r="6" fill="#E53935"/>
+                      </svg>`
+            },
+            {
+                id: 'Z', type: 'letter', upper: 'Z', lower: 'z', color: '#3E2723',
+                wordId: 'Zebra', wordEn: 'Zebra',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-10 sm:w-18 sm:h-13">
+                        <rect x="34" y="54" width="7" height="22" fill="#FFF" stroke="#111" stroke-width="2"/>
+                        <rect x="46" y="54" width="7" height="22" fill="#FFF" stroke="#111" stroke-width="2"/>
+                        <rect x="64" y="54" width="7" height="22" fill="#FFF" stroke="#111" stroke-width="2"/>
+                        <rect x="74" y="54" width="7" height="22" fill="#FFF" stroke="#111" stroke-width="2"/>
+                        <ellipse cx="56" cy="44" rx="24" ry="14" fill="#FFFFFF" stroke="#111" stroke-width="2.2"/>
+                        <path d="M44,31 L44,57 M52,30 L52,58 M60,30 L60,58 M68,31 L68,57" stroke="#111" stroke-width="3.5"/>
+                        <path d="M34,42 L26,20 L40,18 L44,36 Z" fill="#FFFFFF" stroke="#111" stroke-width="2.2"/>
+                        <ellipse cx="26" cy="22" rx="11" ry="7" fill="#FFFFFF" stroke="#111" stroke-width="2.2" transform="rotate(-20 26 22)"/>
+                        <circle cx="28" cy="20" r="2" fill="#111"/>
+                      </svg>`
+            },
+            // 4 Kartu Warna
+            {
+                id: 'Merah', type: 'color', color: '#D50000',
+                wordId: 'Merah', wordEn: 'Red',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-11 sm:w-18 sm:h-14">
+                        <ellipse cx="55" cy="44" rx="34" ry="26" fill="#E53935" stroke="#B71C1C" stroke-width="2.5"/>
+                        <ellipse cx="55" cy="44" rx="26" ry="19" fill="none" stroke="#FF8A80" stroke-width="2"/>
+                        <circle cx="49" cy="40" r="3" fill="#B71C1C"/>
+                        <circle cx="61" cy="40" r="3" fill="#B71C1C"/>
+                        <circle cx="49" cy="48" r="3" fill="#B71C1C"/>
+                        <circle cx="61" cy="48" r="3" fill="#B71C1C"/>
+                      </svg>`
+            },
+            {
+                id: 'Hitam', type: 'color', color: '#111111',
+                wordId: 'Hitam', wordEn: 'Black',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-11 sm:w-18 sm:h-14">
+                        <rect x="27" y="16" width="56" height="54" rx="8" fill="#1A1A1A" stroke="#000000" stroke-width="2.5"/>
+                        <rect x="33" y="22" width="44" height="42" rx="5" fill="none" stroke="#616161" stroke-width="2"/>
+                        <circle cx="55" cy="43" r="10" fill="#000" stroke="#424242" stroke-width="2"/>
+                      </svg>`
+            },
+            {
+                id: 'Merah Muda', type: 'color', color: '#EC407A',
+                wordId: 'Merah Muda', wordEn: 'Pink',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-11 sm:w-18 sm:h-14">
+                        <polygon points="55,10 67,33 93,37 74,55 79,80 55,68 31,80 36,55 17,37 43,33"
+                                 fill="#FF1493" stroke="#AD1457" stroke-width="2.5" stroke-linejoin="round"/>
+                        <polygon points="55,17 65,36 86,39 71,54 74,74 55,64 36,74 39,54 24,39 45,36"
+                                 fill="none" stroke="#FF80AB" stroke-width="1.8"/>
+                      </svg>`
+            },
+            {
+                id: 'Biru', type: 'color', color: '#1565C0',
+                wordId: 'Biru', wordEn: 'Blue',
+                svg: `<svg viewBox="0 0 110 85" class="w-14 h-11 sm:w-18 sm:h-14">
+                        <polygon points="55,14 94,72 16,72" fill="#1E88E5" stroke="#0D47A1" stroke-width="2.5" stroke-linejoin="round"/>
+                        <polygon points="55,22 86,67 24,67" fill="none" stroke="#90CAF9" stroke-width="2"/>
+                      </svg>`
+            },
+
+            // BARIS 6 & 7: 10 KARTU ANGKA (1 - 10)
+            { id: '1', type: 'number', num: '1', color: '#E53935', wordId: 'Satu', wordEn: 'One' },
+            { id: '2', type: 'number', num: '2', color: '#F57C00', wordId: 'Dua', wordEn: 'Two' },
+            { id: '3', type: 'number', num: '3', color: '#2E7D32', wordId: 'Tiga', wordEn: 'Three' },
+            { id: '4', type: 'number', num: '4', color: '#1565C0', wordId: 'Empat', wordEn: 'Four' },
+            { id: '5', type: 'number', num: '5', color: '#D50000', wordId: 'Lima', wordEn: 'Five' },
+            { id: '6', type: 'number', num: '6', color: '#E91E63', wordId: 'Enam', wordEn: 'Six' },
+            { id: '7', type: 'number', num: '7', color: '#388E3C', wordId: 'Tujuh', wordEn: 'Seven' },
+            { id: '8', type: 'number', num: '8', color: '#D32F2F', wordId: 'Delapan', wordEn: 'Eight' },
+            { id: '9', type: 'number', num: '9', color: '#EF6C00', wordId: 'Sembilan', wordEn: 'Nine' },
+            { id: '10', type: 'number', num: '10', color: '#00695C', wordId: 'Sepuluh', wordEn: 'Ten' }
+        ];
+
+        // =========================================================================
+        // 2. STATE PERMAINAN
+        // =========================================================================
+        let currentLang = 'id';     // 'id' = Indonesia, 'en' = English
+        let wordMode = false;       // false = baca huruf/angka saja, true = baca huruf + kata
+        let quizMode = false;       // true = sedang mode Ujian
+        let quizTarget = null;      // objek item target ujian saat ini
+        let quizScore = 0;
+        let isMusicPlaying = false;
+        let musicInterval = null;
+        let audioCtx = null;
+
+        // =========================================================================
+        // 3. RENDER PAPAN KARTU KE LAYAR
+        // =========================================================================
+        function renderBoard() {
+            const gridMain = document.getElementById('grid-main');
+            const gridNumbers = document.getElementById('grid-numbers');
+            gridMain.innerHTML = '';
+            gridNumbers.innerHTML = '';
+
+            itemsData.forEach((item, index) => {
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.id = `card-${item.id}`;
+                card.className = 'edu-card flex flex-col items-center justify-between p-1.5 sm:p-2 focus:outline-none relative overflow-hidden';
+                card.onclick = (e) => handleCardClick(item, card, e);
+
+                if (item.type === 'letter') {
+                    // Kartu Huruf A-Z persis seperti gambar
+                    card.innerHTML = `
+                        <div class="w-full flex items-baseline justify-between px-0.5 sm:px-1">
+                            <div class="font-black text-xl sm:text-2xl md:text-[28px] leading-none tracking-tight" style="color:${item.color}">
+                                ${item.upper}<span class="text-base sm:text-xl md:text-2xl ml-0.5">${item.lower}</span>
+                            </div>
+                            <span class="font-extrabold text-[11px] sm:text-xs md:text-sm truncate ml-1" style="color:${item.color}">
+                                ${item.wordId}
+                            </span>
+                        </div>
+                        <div class="my-0.5 flex items-center justify-center">
+                            ${item.svg}
+                        </div>
+                        <div class="font-extrabold text-[10px] sm:text-xs text-gray-900 leading-tight">
+                            ${item.wordEn}
+                        </div>
+                    `;
+                    gridMain.appendChild(card);
+                } else if (item.type === 'color') {
+                    // Kartu Warna (Merah, Hitam, Merah Muda, Biru)
+                    card.innerHTML = `
+                        <div class="w-full flex items-center justify-around px-0.5 pt-0.5">
+                            <span class="font-extrabold text-[10px] sm:text-xs md:text-[13px] leading-tight" style="color:${item.color}">
+                                ${item.wordId}
+                            </span>
+                            <span class="font-extrabold text-[10px] sm:text-xs md:text-[13px] text-gray-800 leading-tight">
+                                ${item.wordEn}
+                            </span>
+                        </div>
+                        <div class="my-auto py-0.5 flex items-center justify-center">
+                            ${item.svg}
+                        </div>
+                    `;
+                    gridMain.appendChild(card);
+                } else if (item.type === 'number') {
+                    // Kartu Angka 1 - 10 di 2 baris bawah
+                    card.className += ' py-2 sm:py-2.5';
+                    card.innerHTML = `
+                        <div class="flex items-center justify-center gap-1.5 sm:gap-2.5 w-full">
+                            <span class="font-black text-2xl sm:text-4xl md:text-[42px] leading-none" style="color:${item.color}">
+                                ${item.num}
+                            </span>
+                            <div class="flex flex-col text-left leading-tight">
+                                <span class="font-extrabold text-[11px] sm:text-sm md:text-base" style="color:${item.color}">
+                                    ${item.wordId}
+                                </span>
+                                <span class="font-extrabold text-[10px] sm:text-xs md:text-sm text-gray-900">
+                                    ${item.wordEn}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    gridNumbers.appendChild(card);
+                }
+            });
+        }
+
+        // =========================================================================
+        // 4. SINTESIS SUARA NARASI (WEB SPEECH API - INDONESIA & ENGLISH)
+        // =========================================================================
+        function speakText(text, langCode) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = langCode === 'id' ? 'id-ID' : 'en-US';
+            utterance.rate = 0.92;  // Kecepatan ramah anak
+            utterance.pitch = 1.15; // Nada sedikit ceria
+
+            // Cari voice terbaik yang tersedia di perangkat
+            const voices = window.speechSynthesis.getVoices();
+            const targetPrefix = langCode === 'id' ? 'id' : 'en';
+            const matchedVoice = voices.find(v => v.lang.toLowerCase().startsWith(targetPrefix));
+            if (matchedVoice) {
+                utterance.voice = matchedVoice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Pastikan daftar voice dimuat di browser Chrome/Android
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+        }
+
+        // =========================================================================
+        // 5. EFEK SUARA & MUSIK LATAR CERIA (WEB AUDIO API)
+        // =========================================================================
+        function initAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContextClass();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playTone(freq, duration = 0.15, type = 'sine', volume = 0.18, delay = 0) {
+            try {
+                initAudioContext();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+
+                gain.gain.setValueAtTime(volume, audioCtx.currentTime + delay);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime + delay);
+                osc.stop(audioCtx.currentTime + delay + duration);
+            } catch (e) {}
+        }
+
+        function playClickPop() {
+            playTone(587.33, 0.08, 'triangle', 0.14); // D5
+        }
+
+        function playCorrectSound() {
+            playTone(523.25, 0.14, 'triangle', 0.22, 0);    // C5
+            playTone(659.25, 0.14, 'triangle', 0.22, 0.11); // E5
+            playTone(783.99, 0.28, 'triangle', 0.25, 0.22); // G5
+        }
+
+        function playWrongSound() {
+            playTone(246.94, 0.18, 'sawtooth', 0.12, 0);    // B3
+            playTone(196.00, 0.25, 'sawtooth', 0.12, 0.15); // G3
+        }
+
+        function toggleMusic() {
+            isMusicPlaying = !isMusicPlaying;
+            const offLine = document.getElementById('music-off-line');
+            const iconMusic = document.getElementById('icon-music');
+
+            if (isMusicPlaying) {
+                offLine.classList.add('hidden');
+                iconMusic.classList.add('menu-btn-active');
+                startBackgroundMelody();
+            } else {
+                offLine.classList.remove('hidden');
+                iconMusic.classList.remove('menu-btn-active');
+                stopBackgroundMelody();
+            }
+        }
+
+        function startBackgroundMelody() {
+            stopBackgroundMelody();
+            // Melodi lagu anak ceria ("Twinkle / Bintang Kecil" variasi lembut)
+            const melody = [
+                261.63, 261.63, 392.00, 392.00, 440.00, 440.00, 392.00, 0,
+                349.23, 349.23, 329.63, 329.63, 293.66, 293.66, 261.63, 0
+            ];
+            let step = 0;
+            musicInterval = setInterval(() => {
+                if (!isMusicPlaying) return;
+                const note = melody[step % melody.length];
+                if (note > 0) {
+                    playTone(note, 0.32, 'sine', 0.055);
+                }
+                step++;
+            }, 420);
+        }
+
+        function stopBackgroundMelody() {
+            if (musicInterval) {
+                clearInterval(musicInterval);
+                musicInterval = null;
+            }
+        }
+
+        // =========================================================================
+        // 6. PARTIKEL BINTANG VISUAL SAAT KARTU DIKLIK
+        // =========================================================================
+        function spawnStars(x, y) {
+            const colors = ['#FFEA00', '#FF1744', '#00E5FF', '#00E676', '#FF9100'];
+            for (let i = 0; i < 6; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-particle text-lg sm:text-xl font-bold';
+                star.textContent = '★';
+                star.style.color = colors[i % colors.length];
+                star.style.left = `${x - 8}px`;
+                star.style.top = `${y - 8}px`;
+
+                const angle = (Math.PI * 2 * i) / 6 + (Math.random() * 0.4);
+                const dist = 35 + Math.random() * 35;
+                star.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+                star.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 750);
+            }
+        }
+
+        // =========================================================================
+        // 7. LOGIKA TOMBOL KONTROL ATAS (INI/EN, KATA, UJIAN)
+        // =========================================================================
+        function toggleLanguage() {
+            playClickPop();
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+
+            const badge = document.getElementById('lang-badge');
+            badge.textContent = currentLang.toUpperCase();
+
+            if (currentLang === 'id') {
+                speakText('Mode Bahasa Indonesia', 'id');
+            } else {
+                speakText('English Mode', 'en');
+            }
+
+            if (quizMode && quizTarget) {
+                setTimeout(() => askQuizQuestion(), 900);
+            } else {
+                updateStatusBar();
+            }
+        }
+
+        function toggleWordMode() {
+            playClickPop();
+            if (quizMode) {
+                quizMode = false;
+                document.getElementById('icon-quiz').classList.remove('menu-btn-active');
+            }
+            wordMode = !wordMode;
+
+            const iconWord = document.getElementById('icon-word');
+            if (wordMode) {
+                iconWord.classList.add('menu-btn-active');
+                speakText(currentLang === 'id' ? 'Mode baca kata' : 'Word reading mode', currentLang);
+            } else {
+                iconWord.classList.remove('menu-btn-active');
+                speakText(currentLang === 'id' ? 'Mode huruf dan angka' : 'Letters and numbers mode', currentLang);
+            }
+            updateStatusBar();
+        }
+
+        function toggleQuizMode() {
+            playClickPop();
+            quizMode = !quizMode;
+            const iconQuiz = document.getElementById('icon-quiz');
+            const iconWord = document.getElementById('icon-word');
+
+            if (quizMode) {
+                wordMode = false;
+                iconWord.classList.remove('menu-btn-active');
+                iconQuiz.classList.add('menu-btn-active');
+                quizScore = 0;
+                document.getElementById('quiz-score').textContent = '0';
+                nextQuizQuestion();
+            } else {
+                iconQuiz.classList.remove('menu-btn-active');
+                quizTarget = null;
+                speakText(currentLang === 'id' ? 'Ujian selesai' : 'Quiz finished', currentLang);
+                updateStatusBar();
+            }
+        }
+
+        function updateStatusBar() {
+            const modePill = document.getElementById('mode-pill');
+            const statusText = document.getElementById('status-text');
+            const repeatBtn = document.getElementById('btn-repeat-quiz');
+            const scoreBox = document.getElementById('quiz-score-box');
+
+            if (quizMode) {
+                modePill.textContent = currentLang === 'id' ? '🎯 Mode Ujian' : '🎯 Quiz Mode';
+                modePill.className = 'px-2.5 py-0.5 rounded-full font-extrabold text-white bg-[#D50000] text-xs uppercase tracking-wide shrink-0';
+                repeatBtn.classList.remove('hidden');
+                scoreBox.classList.remove('hidden');
+                scoreBox.classList.add('flex');
+            } else {
+                repeatBtn.classList.add('hidden');
+                scoreBox.classList.add('hidden');
+                scoreBox.classList.remove('flex');
+
+                if (wordMode) {
+                    modePill.textContent = currentLang === 'id' ? '🔊 Mode Kata (ID)' : '🔊 Word Mode (EN)';
+                    modePill.className = 'px-2.5 py-0.5 rounded-full font-extrabold text-white bg-[#FF6D00] text-xs uppercase tracking-wide shrink-0';
+                    statusText.textContent = currentLang === 'id'
+                        ? 'Klik kartu untuk mendengar huruf dan nama bendanya!'
+                        : 'Tap any card to hear the letter and object name!';
+                } else {
+                    modePill.textContent = currentLang === 'id' ? '📘 Belajar (ID)' : '📘 Learn (EN)';
+                    modePill.className = 'px-2.5 py-0.5 rounded-full font-extrabold text-white bg-[#0091EA] text-xs uppercase tracking-wide shrink-0';
+                    statusText.textContent = currentLang === 'id'
+                        ? 'Sentuh huruf, warna, atau angka untuk mendengarnya!'
+                        : 'Tap any letter, color, or number to listen!';
+                }
+            }
+        }
+
+        // =========================================================================
+        // 8. LOGIKA UJIAN (KUIS TEBAK KARTU)
+        // =========================================================================
+        function nextQuizQuestion() {
+            const randomIndex = Math.floor(Math.random() * itemsData.length);
+            quizTarget = itemsData[randomIndex];
+            askQuizQuestion();
+        }
+
+        function askQuizQuestion() {
+            if (!quizTarget) return;
+            updateStatusBar();
+            const statusText = document.getElementById('status-text');
+
+            let questionText = '';
+            if (currentLang === 'id') {
+                if (quizTarget.type === 'letter') {
+                    questionText = `Di manakah huruf ${quizTarget.upper}, ${quizTarget.wordId}?`;
+                } else if (quizTarget.type === 'color') {
+                    questionText = `Mana warna ${quizTarget.wordId}?`;
+                } else {
+                    questionText = `Di manakah angka ${quizTarget.num}, ${quizTarget.wordId}?`;
+                }
+            } else {
+                if (quizTarget.type === 'letter') {
+                    questionText = `Where is letter ${quizTarget.upper}, ${quizTarget.wordEn}?`;
+                } else if (quizTarget.type === 'color') {
+                    questionText = `Where is color ${quizTarget.wordEn}?`;
+                } else {
+                    questionText = `Where is number ${quizTarget.wordEn}?`;
+                }
+            }
+
+            statusText.textContent = questionText;
+            speakText(questionText, currentLang);
+        }
+
+        function repeatQuizQuestion() {
+            if (quizMode && quizTarget) {
+                askQuizQuestion();
+            }
+        }
+
+        // =========================================================================
+        // 9. INTERAKSI SAAT KARTU DIKLIK / DISENTUH
+        // =========================================================================
+        function handleCardClick(item, cardEl, event) {
+            // Efek bintang di titik klik
+            const rect = cardEl.getBoundingClientRect();
+            const clickX = event.clientX || (rect.left + rect.width / 2);
+            const clickY = event.clientY || (rect.top + rect.height / 2);
+            spawnStars(clickX, clickY);
+
+            // Animasi kartu membal
+            cardEl.classList.remove('card-pop');
+            void cardEl.offsetWidth;
+            cardEl.classList.add('card-pop');
+            setTimeout(() => cardEl.classList.remove('card-pop'), 260);
+
+            // Jika sedang dalam MODE UJIAN
+            if (quizMode && quizTarget) {
+                if (item.id === quizTarget.id) {
+                    // Jawaban Benar!
+                    playCorrectSound();
+                    quizScore += 10;
+                    document.getElementById('quiz-score').textContent = quizScore;
+
+                    cardEl.classList.remove('card-correct');
+                    void cardEl.offsetWidth;
+                    cardEl.classList.add('card-correct');
+
+                    const praise = currentLang === 'id' ? 'Hebat! Benar sekali!' : 'Great job! Correct!';
+                    document.getElementById('status-text').textContent = `🎉 ${praise}`;
+                    speakText(praise, currentLang);
+
+                    setTimeout(() => {
+                        if (quizMode) nextQuizQuestion();
+                    }, 1600);
+                } else {
+                    // Jawaban Salah
+                    playWrongSound();
+                    cardEl.classList.remove('card-wrong');
+                    void cardEl.offsetWidth;
+                    cardEl.classList.add('card-wrong');
+
+                    const retryMsg = currentLang === 'id' ? 'Coba lagi ya!' : 'Try again!';
+                    speakText(retryMsg, currentLang);
+                }
+                return;
+            }
+
+            // Jika dalam MODE BELAJAR (Huruf/Angka atau Kata)
+            playClickPop();
+            let speechPhrase = '';
+
+            if (currentLang === 'id') {
+                if (wordMode) {
+                    if (item.type === 'letter') speechPhrase = `${item.upper}. ${item.wordId}`;
+                    else if (item.type === 'color') speechPhrase = `Warna ${item.wordId}`;
+                    else speechPhrase = `Angka ${item.wordId}`;
+                } else {
+                    if (item.type === 'letter') speechPhrase = item.upper;
+                    else speechPhrase = item.wordId;
+                }
+            } else {
+                if (wordMode) {
+                    if (item.type === 'letter') speechPhrase = `${item.upper}. ${item.wordEn}`;
+                    else if (item.type === 'color') speechPhrase = `Color ${item.wordEn}`;
+                    else speechPhrase = `Number ${item.wordEn}`;
+                } else {
+                    if (item.type === 'letter') speechPhrase = item.upper;
+                    else speechPhrase = item.wordEn;
+                }
+            }
+
+            // Tampilkan teks yang sedang dibaca pada status bar
+            document.getElementById('status-text').textContent = `🗣️ "${speechPhrase}"`;
+            speakText(speechPhrase, currentLang);
+        }
+
+        // Inisialisasi papan saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            renderBoard();
+            updateStatusBar();
+        });
+    </script>
+</body>
+</html>
